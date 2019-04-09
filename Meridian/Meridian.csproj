@@ -1,31 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{5B8E109A-8F3B-44EE-A6CA-4A1391DB814E}</ProjectGuid>
+    <ProjectGuid>{A9192D02-48C7-4E3C-B10E-A555C35249E7}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Meridian</RootNamespace>
     <AssemblyName>Meridian</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>ru-RU</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Meridian_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>7B279E74A5BC91E712CF525890E442335FC3F043</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <PackageCertificateKeyFile>Meridian_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;SDKVERSION_14393</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -68,6 +65,30 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -91,13 +112,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
-  <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="Meridian_StoreKey.pfx" />
-    <None Include="project.json" />
-    <PRIResource Include="Resources\Localization\ru-RU\Resources.resw" />
-    <PRIResource Include="Resources\Localization\en-US\Resources.resw" />
-  </ItemGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -144,12 +161,15 @@
     <Compile Include="Interfaces\IAudio.cs" />
     <Compile Include="Interfaces\IPlaylist.cs" />
     <Compile Include="Ioc.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\AudioContainer.cs" />
     <Compile Include="Model\AudioGroup.cs" />
-    <Compile Include="Model\CachedImage.cs" />
     <Compile Include="Model\AudioPlaylist.cs" />
     <Compile Include="Model\AudioPost.cs" />
     <Compile Include="Model\AudioVk.cs" />
+    <Compile Include="Model\CachedImage.cs" />
     <Compile Include="Model\CatalogBlock.cs" />
     <Compile Include="Model\ColorScheme.cs" />
     <Compile Include="Model\Discovery\DiscoveryAlbum.cs" />
@@ -159,6 +179,8 @@
     <Compile Include="Model\PlaylistVk.cs" />
     <Compile Include="Model\Theme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemotePlay\RemotePlayApiClient.cs" />
+    <Compile Include="Services\Analytics.cs" />
     <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\Discovery\DiscoveryService.cs" />
@@ -169,8 +191,6 @@
     <Compile Include="Services\Images\IImageResolver.cs" />
     <Compile Include="Services\Images\LastFmImageResolver.cs" />
     <Compile Include="Services\Logger.cs" />
-    <Compile Include="Services\Analytics.cs" />
-    <Compile Include="RemotePlay\RemotePlayApiClient.cs" />
     <Compile Include="Services\RemotePlayService.cs" />
     <Compile Include="Services\ScrobblingService.cs" />
     <Compile Include="Services\TileHelper.cs" />
@@ -188,20 +208,20 @@
     <Compile Include="Utils\Messaging\MessageMyMusicChanged.cs" />
     <Compile Include="Utils\Messaging\MessagePlaylistRemoved.cs" />
     <Compile Include="Utils\Messaging\MessageUserAuthChanged.cs" />
-    <Compile Include="ViewModel\Common\LastFmLoginViewModel.cs" />
-    <Compile Include="ViewModel\Common\PlaylistsListViewModel.cs" />
     <Compile Include="ViewModel\Common\ExploreViewModel.cs" />
+    <Compile Include="ViewModel\Common\LastFmLoginViewModel.cs" />
     <Compile Include="ViewModel\Common\NowPlayingViewModel.cs" />
+    <Compile Include="ViewModel\Common\PlaylistsListViewModel.cs" />
     <Compile Include="ViewModel\Common\PopupViewModelBase.cs" />
     <Compile Include="ViewModel\Common\SettingsViewModel.cs" />
     <Compile Include="ViewModel\Discovery\AlbumlistViewModel.cs" />
+    <Compile Include="ViewModel\Discovery\AlbumViewModel.cs" />
     <Compile Include="ViewModel\Discovery\ArtistlistViewModel.cs" />
     <Compile Include="ViewModel\Discovery\ArtistViewModel.cs" />
     <Compile Include="ViewModel\Discovery\TracklistViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
-    <Compile Include="ViewModel\Discovery\AlbumViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\VK\EditPlaylistViewModel.cs" />
     <Compile Include="ViewModel\VK\EditTrackViewModel.cs" />
@@ -212,8 +232,8 @@
     <Compile Include="ViewModel\VK\PopularMusicViewModel.cs" />
     <Compile Include="ViewModel\VK\SearchViewModel.cs" />
     <Compile Include="ViewModel\VK\SelectPlaylistViewModel.cs" />
-    <Compile Include="ViewModel\VK\SocietyMusicViewModel.cs" />
     <Compile Include="ViewModel\VK\SocietiesViewModel.cs" />
+    <Compile Include="ViewModel\VK\SocietyMusicViewModel.cs" />
     <Compile Include="ViewModel\VK\TrackLyricsViewModel.cs" />
     <Compile Include="ViewModel\VK\TracksViewModelBase.cs" />
     <Compile Include="View\Common\ExploreView.xaml.cs">
@@ -227,9 +247,6 @@
     </Compile>
     <Compile Include="View\Common\PlaylistsListView.xaml.cs">
       <DependentUpon>PlaylistsListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\VK\PlaylistView.xaml.cs">
-      <DependentUpon>PlaylistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\AudioPostControl.xaml.cs">
       <DependentUpon>AudioPostControl.xaml</DependentUpon>
@@ -249,6 +266,9 @@
     <Compile Include="View\Discovery\AlbumListView.xaml.cs">
       <DependentUpon>AlbumListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Discovery\AlbumView.xaml.cs">
+      <DependentUpon>AlbumView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Discovery\ArtistlistView.xaml.cs">
       <DependentUpon>ArtistlistView.xaml</DependentUpon>
     </Compile>
@@ -263,9 +283,6 @@
     </Compile>
     <Compile Include="View\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Discovery\AlbumView.xaml.cs">
-      <DependentUpon>AlbumView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -287,6 +304,9 @@
     </Compile>
     <Compile Include="View\VK\MyMusicView.xaml.cs">
       <DependentUpon>MyMusicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VK\PlaylistView.xaml.cs">
+      <DependentUpon>PlaylistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VK\PopularMusicView.xaml.cs">
       <DependentUpon>PopularMusicView.xaml</DependentUpon>
@@ -312,6 +332,8 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Meridian_TemporaryKey.pfx" />
+    <PRIResource Include="Resources\Localization\ru-RU\Resources.resw" />
+    <PRIResource Include="Resources\Localization\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -354,12 +376,18 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="RemotePlay\web\img\light\volume.png" />
     <Content Include="RemotePlay\web\img\light\volume_mute.png" />
     <Content Include="RemotePlay\web\img\player.svg" />
-    <None Include="RemotePlay\web\index.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="RemotePlay\web\js\index.js" />
     <Content Include="RemotePlay\web\js\utils.js" />
     <Content Include="RemotePlay\web\lib\jquery-2.1.3.min.js" />
@@ -384,13 +412,9 @@
     <Content Include="Resources\Images\Toolbar\refresh.png" />
     <Content Include="Resources\Images\Toolbar\refresh.scale-200.png" />
     <Content Include="Resources\Images\Toolbar\refresh.scale-400.png" />
-    <None Include="Package.StoreAssociation.xml" />
-    <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <None Include="RemotePlay\web\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -398,16 +422,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\AlbumCoverControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImageTransitionControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PaginationListView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PopupControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -417,42 +441,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Accents\Blue.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\System.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\Sky.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\Sea.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\Purple.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\Pink.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\Mango.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Resources\Accents\Magenta.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -462,180 +455,215 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Resources\Accents\Red.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resources\Accents\Magenta.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\Mango.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\Pink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\Sea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\Sky.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Accents\System.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\Brushes.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\Styles\ButtonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\Icons.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\ListViewStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\LoadingIndicatorStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\PivotStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\PlayerControlStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\SplitViewStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\TextBoxStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Resources\Styles\ToolbarStyles.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Shell.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\ButtonStyles.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="View\Common\ExploreView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Common\LastFmLoginView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Common\NowPlayingView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Common\PlaylistsListView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\VK\PlaylistView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Controls\AudioPostControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Controls\MiniPlayerControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Controls\PageHeaderControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Controls\PlayerControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Controls\TrackControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Discovery\AlbumListView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Discovery\ArtistlistView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Discovery\ArtistView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Discovery\TracklistView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\LoginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SearchView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Discovery\AlbumView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Discovery\ArtistlistView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Discovery\ArtistView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Discovery\TracklistView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SearchView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Settings\SettingsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\EditPlaylistView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\EditTrackView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\FeedView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\FriendMusicView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\FriendsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\MyMusicView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\VK\PlaylistView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\PopularMusicView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\RecommendationsView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\SelectPlaylistView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\SocietiesView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\SocietyMusicView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\VK\TrackLyricsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -643,44 +671,81 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
-      <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.15063.0%29</Name>
-    </SDKReference>
+    <PackageReference Include="CommonServiceLocation">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="HockeySDK.UWP">
+      <Version>4.1.6</Version>
+    </PackageReference>
+    <PackageReference Include="MetroLog">
+      <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLightLibs">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.23.0</Version>
+    </PackageReference>
+    <PackageReference Include="Yandex.Metrica">
+      <Version>3.5.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Jupiter\Jupiter.UWP\Jupiter.UWP.csproj">
-      <Project>{51f9f331-1237-4d09-b8b7-eb00be730c19}</Project>
-      <Name>Jupiter.UWP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\libs\DeezerLib\DeezerLib.csproj">
-      <Project>{c3d43966-7279-4b88-8656-6f98e4cb1ee0}</Project>
+      <Project>{4188e5d1-14e6-469c-8a12-8eab7a9c5bb5}</Project>
       <Name>DeezerLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\libs\GrooveLib\GrooveApiClient.csproj">
-      <Project>{efc538c3-4ef6-43b4-b49a-152e35563bda}</Project>
+    <ProjectReference Include="..\libs\GrooveApiClient\GrooveApiClient.csproj">
+      <Project>{d2435291-50f8-466b-8846-1bb5fd6cb1ab}</Project>
       <Name>GrooveApiClient</Name>
     </ProjectReference>
+    <ProjectReference Include="..\libs\Jupiter.UWP\Jupiter.UWP.csproj">
+      <Project>{515d82fb-9611-498b-893b-9f6daf31429e}</Project>
+      <Name>Jupiter.UWP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\libs\LastFmLib\LastFmLib.csproj">
-      <Project>{6f475938-dfb7-4f5e-92f6-7f270b18ae1b}</Project>
+      <Project>{bb4192b9-1aee-4398-8067-8de3581e3fa2}</Project>
       <Name>LastFmLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\libs\VkLib\VkLib.csproj">
+      <Project>{5984676b-b94f-48b3-bf51-07ab7e471b1d}</Project>
+      <Name>VkLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RemoteKit\RemoteKit.Core\RemoteKit.Core.csproj">
-      <Project>{96c536a2-7b0b-45c5-9e50-6e6cd40a8758}</Project>
+      <Project>{828bfc10-62b8-4cf7-9164-c24ed686fbf4}</Project>
       <Name>RemoteKit.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\RemoteKit\RemoteKit.Server\RemoteKit.Server.csproj">
-      <Project>{6aca044c-4d36-409b-a673-899af04c1440}</Project>
+      <Project>{8ccbe750-6b0b-42e7-9691-92241605170b}</Project>
       <Name>RemoteKit.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VkLib\VkLib.csproj">
-      <Project>{53a806d8-1a75-41e3-b672-c75639e4c7a3}</Project>
-      <Name>VkLib</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.17134.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.17134.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
